@@ -1,0 +1,8 @@
+{
+  "Nome": "deitar",
+  "Passos": null,
+  "Delay": null,
+  "Posturas": [
+    {"CoordenadasDosMembros": [ { "SiglaDoMembro": "EF", "X": 7.3, "Y": 15, "Z": 60 }, { "SiglaDoMembro": "DT", "X": 7.3, "Y": 15, "Z": 60 }, { "SiglaDoMembro": "DF", "X": 7.3, "Y": 15, "Z": 60 }, { "SiglaDoMembro": "ET", "X": 7.3, "Y": 15, "Z": 60 } ] }
+  ]
+}

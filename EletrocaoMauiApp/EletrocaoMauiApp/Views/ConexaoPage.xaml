@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EletrocaoMauiApp.Views.ConexaoPage"
+			 NavigationPage.HasNavigationBar="False"
+			 Background="{StaticResource GradientBackground}"
+			 xmlns:resources="clr-namespace:EletrocaoMauiApp.Resources.Strings">
+
+		<VerticalStackLayout VerticalOptions="Start"
+							 Spacing="10">
+
+		<Grid ColumnDefinitions="auto,auto" Padding="20" HorizontalOptions="End">
+
+			<!-- Botão Configurações -->
+			<Button Text="🛠"
+            Grid.Column="0"
+            FontSize="20"
+            TextColor="Black"
+            BackgroundColor="Transparent"
+            Clicked="NavegarParaPreferenciasDoMqtt"/>
+
+			<!-- Botão Sair -->
+			<Button Text="↩"
+            Grid.Column="1"
+            FontSize="23"
+            TextColor="Black"
+            BackgroundColor="Transparent"
+            Clicked="FecharAplicativo"/>
+		</Grid>
+			
+		<Image  Source="spotmicro.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+				/>
+		<Label Text="Login"
+				FontSize="Title"
+				FontAttributes="Bold"
+				FontFamily="JostRegular"
+                HorizontalOptions="Center"
+			   />
+		<Entry x:Name="usuarioEntry"
+			   HorizontalOptions="Center"
+			   WidthRequest="200"
+               Placeholder="Digite o usuário"
+			   PlaceholderColor="SkyBlue"/>
+		<Entry x:Name="senhaEntry"
+			   HorizontalOptions="Center"
+			   WidthRequest="200"
+               Placeholder="Digite a senha"
+               IsPassword="True"/>
+		<Button x:Name="Connection_Btn"
+				HorizontalOptions="Center"
+				WidthRequest="200"
+                Text="{x:Static resources:AppResources.CONECTAR}"
+                Clicked="Connection_Btn_Clicked"
+				Style="{StaticResource BotaoCinza}"/>
+		<HorizontalStackLayout
+            VerticalOptions="Center"
+			HorizontalOptions="Center">
+			
+			<CheckBox x:Name="salvarDadosLogin_Check"
+                      VerticalOptions="Center"
+					  Color="MidnightBlue"/>
+			<Label Text="{x:Static resources:AppResources.SALVA_USUARIO_SENHA}"
+                   VerticalOptions="Center"
+				   TextColor="MidnightBlue"/>
+		</HorizontalStackLayout>
+		<ActivityIndicator x:Name="indicadorDeAtividade" IsRunning="{Binding ocupado}"
+                           VerticalOptions="Center" HorizontalOptions="Center" Color="MidnightBlue" />
+	</VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,119 @@
+{
+  "Nome": "caminhar",
+  "Passos": 10,
+  "Delay": 25,
+  "Posturas": [
+	{
+	  "CoordenadasDosMembros": [
+		{
+		  "SiglaDoMembro": "EF",
+		  "X": 10,
+		  "Y": 180,
+		  "Z": 60
+		},
+		{
+		  "SiglaDoMembro": "DT",
+		  "X": 10,
+		  "Y": 180,
+		  "Z": 60
+		},
+		{
+		  "SiglaDoMembro": "DF",
+		  "X": 70,
+		  "Y": 180,
+		  "Z": 60
+		},
+		{
+		  "SiglaDoMembro": "ET",
+		  "X": 70,
+		  "Y": 180,
+		  "Z": 60
+		}
+	  ]
+	},
+	{
+	  "CoordenadasDosMembros": [
+		{
+		  "SiglaDoMembro": "EF",
+		  "X": 40,
+		  "Y": 180,
+		  "Z": 60
+		},
+		{
+		  "SiglaDoMembro": "DT",
+		  "X": 40,
+		  "Y": 180,
+		  "Z": 60
+		},
+		{
+		  "SiglaDoMembro": "DF",
+		  "X": 40,
+		  "Y": 150,
+		  "Z": 60
+		},
+		{
+		  "SiglaDoMembro": "ET",
+		  "X": 40,
+		  "Y": 150,
+		  "Z": 60
+		}
+	  ]
+	},
+	{
+	  "CoordenadasDosMembros": [
+		{
+		  "SiglaDoMembro": "EF",
+		  "X": 70,
+		  "Y": 170,
+		  "Z": 60
+		},
+		{
+		  "SiglaDoMembro": "DT",
+		  "X": 70,
+		  "Y": 170,
+		  "Z": 60
+		},
+		{
+		  "SiglaDoMembro": "DF",
+		  "X": 10,
+		  "Y": 170,
+		  "Z": 60
+		},
+		{
+		  "SiglaDoMembro": "ET",
+		  "X": 10,
+		  "Y": 170,
+		  "Z": 60
+		}
+	  ]
+	},
+	{
+	  "CoordenadasDosMembros": [
+		{
+		  "SiglaDoMembro": "EF",
+		  "X": 40,
+		  "Y": 150,
+		  "Z": 60
+		},
+		{
+		  "SiglaDoMembro": "DT",
+		  "X": 40,
+		  "Y": 150,
+		  "Z": 60
+		},
+		{
+		  "SiglaDoMembro": "DF",
+		  "X": 40,
+		  "Y": 170,
+		  "Z": 60
+		},
+		{
+		  "SiglaDoMembro": "ET",
+		  "X": 40,
+		  "Y": 170,
+		  "Z": 60
+		}
+	  ]
+	}
+  ]
+}

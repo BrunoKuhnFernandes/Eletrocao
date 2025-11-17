@@ -1,0 +1,9 @@
+{
+  "Nome": "levantar",
+  "Passos": null,
+  "Delay": null,
+  "Posturas": [
+    {"CoordenadasDosMembros": [ { "SiglaDoMembro": "EF", "X": 0, "Y": 170, "Z": 60 }, { "SiglaDoMembro": "DT", "X": 0, "Y": 170, "Z": 60 }, { "SiglaDoMembro": "DF", "X": 0, "Y": 170, "Z": 60 }, { "SiglaDoMembro": "ET", "X": 0, "Y": 170, "Z": 60 } ] },
+    {"CoordenadasDosMembros": [ { "SiglaDoMembro": "EF", "X": 0, "Y": 120, "Z": 60 }, { "SiglaDoMembro": "DT", "X": 0, "Y": 120, "Z": 60 }, { "SiglaDoMembro": "DF", "X": 0, "Y": 120, "Z": 60 }, { "SiglaDoMembro": "ET", "X": 0, "Y": 120, "Z": 60 } ] }
+  ]
+}

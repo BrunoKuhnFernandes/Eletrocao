@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EletrocaoMauiApp.Views.PreferenciasPage"
+			 NavigationPage.HasBackButton="True"
+			 NavigationPage.HasNavigationBar="False"
+			 Background="{StaticResource GradientBackground}">
+
+	<VerticalStackLayout Padding="10" Spacing="10">
+		<Grid ColumnDefinitions="*,Auto,Auto,Auto" Padding="0,0" >
+			<!-- Título -->
+			<Label Text="Configurações"
+			FontSize="25"
+			FontAttributes="Bold"
+			FontFamily="Jost"
+			TextColor="Black"
+			VerticalOptions="Center"
+			HorizontalOptions="Start"/>
+
+			
+			<!-- Botão voltar -->
+			<Button Text="↩︎"
+			Grid.Column="3"
+			FontSize="23"
+			TextColor="Black"
+			BackgroundColor="Transparent"
+			HorizontalOptions="End"
+			Clicked="Voltar_Clicked"/>
+		</Grid>
+		
+		<Frame BackgroundColor="Transparent" BorderColor="Transparent">
+			<Label Text="🛠" FontSize="50" HorizontalOptions="Center"/>
+		</Frame>
+		<Label Text="Idioma"
+		FontSize="Title"
+		FontAttributes="Bold"
+		FontFamily="JostRegular"
+        HorizontalOptions="Center" />
+
+		<Grid ColumnDefinitions="Auto, Auto" Padding="0,0" HorizontalOptions="Center" RowDefinitions="Auto, Auto">
+			<Button x:Name="BRButton"
+				ImageSource="brazil.png"
+				HeightRequest="50"
+				BackgroundColor="Transparent"
+				Clicked="Bandeira_Clicked"
+				Grid.Column="0"/>
+
+			<RadioButton x:Name="RadioBR" 
+				Grid.Column="0"
+				Grid.Row="1"
+				Value="pt"
+				HorizontalOptions="End"
+				GroupName="Language"
+				CheckedChanged="Radio_CheckedChanged"/>
+
+			<Button x:Name="ENButton"
+				ImageSource="estados.png"
+				HeightRequest="50"
+				BackgroundColor="Transparent"
+				Clicked="Bandeira_Clicked"
+				Grid.Column="1"/>
+			<RadioButton x:Name="RadioEN"
+				 Grid.Column="1"
+				 Value="en"
+				 Grid.Row="1"
+				 HorizontalOptions="End"
+				 GroupName="Language"
+				 CheckedChanged="Radio_CheckedChanged"
+				 FontFamily="Jost"/>	
+		</Grid>
+		
+		<Label Text="Serviço Mqtt"
+				FontSize="Title"
+				FontAttributes="Bold"
+				FontFamily="JostRegular"
+                HorizontalOptions="Center" />
+		<Entry x:Name="hostEntry"
+               Placeholder="Host"
+			   PlaceholderColor="SkyBlue"
+			   HorizontalOptions="Center"
+			   WidthRequest="200"/>
+		<Entry x:Name="portEntry"
+               Placeholder="0000"
+			   PlaceholderColor="SkyBlue"
+			   HorizontalOptions="Center"
+			   WidthRequest="200"/>
+		<Button x:Name="Salvar_Btn"
+                Text="Salvar"
+				HorizontalOptions="Center"
+				WidthRequest="200"
+                Clicked="Salvar_Btn_Clicked"
+				Style="{StaticResource BotaoCinza}"/>
+	</VerticalStackLayout>
+</ContentPage>

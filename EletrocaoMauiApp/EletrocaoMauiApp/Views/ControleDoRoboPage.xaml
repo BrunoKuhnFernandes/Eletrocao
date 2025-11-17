@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EletrocaoMauiApp.Views.ControleDoRoboPage"
+			 NavigationPage.HasBackButton="False"
+			 NavigationPage.HasNavigationBar="False"
+			 Background="{StaticResource GradientBackground}"
+			 xmlns:resources="clr-namespace:EletrocaoMauiApp.Resources.Strings">
+
+	<ScrollView>
+		<VerticalStackLayout Padding="5" Spacing="5" Margin="0" >
+
+			<Grid ColumnDefinitions="Auto,*,*,Auto,Auto" Padding="10,0" VerticalOptions="Center">
+				<!-- Título -->
+				<Label Text="Eletrocão"
+                   FontSize="30"
+                   FontAttributes="Bold"
+				   FontFamily="Jost"
+                   TextColor="Black"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"/>
+
+				<ActivityIndicator Grid.Column="1" x:Name="indicadorDeAtividade" IsRunning="{Binding ocupado}"
+               VerticalOptions="Center" HorizontalOptions="Center" Color="MidnightBlue" />
+				<!-- Botão ir para o controle de juntas -->
+				<Button Text="🕹️"
+					Grid.Column="1"
+					FontSize="23"
+					TextColor="Black"
+					BackgroundColor="Transparent"
+					HorizontalOptions="End"
+					Clicked="NavegarParaControleDasJuntas"/>
+				<!-- Botão Configuracoes -->
+				<Button Text="🛠"
+                    Grid.Column="2"
+                    FontSize="20"
+                    TextColor="Black"
+                    BackgroundColor="Transparent"
+                    Clicked="NavegarParaJuntas"/>
+				<!-- Botão Sair -->
+				<Button Text="↩"
+                    Grid.Column="4"
+                    FontSize="23"
+                    TextColor="Black"
+                    BackgroundColor="Transparent"
+                   Clicked="NavegarParaConexao"/>
+			</Grid>
+
+			<!-- Grid de botões-->
+			<Grid ColumnDefinitions="*,*"
+                  RowDefinitions="Auto,Auto,Auto,Auto"
+                  ColumnSpacing="5"
+                  RowSpacing="5">
+				<!-- Levantar -->
+				<Button Grid.Row="0" Grid.Column="0"
+					ImageSource="{x:Static resources:AppResources.LEVANTAR_IMG}"
+					ContentLayout="Top,10"
+					Pressed="OnComandoPressed"
+					Released="OnComandoReleased"
+					CommandParameter="levantar.json"
+					
+					Style="{StaticResource BotaoCinza}"/>
+				<!-- Deitar -->
+				<Button Grid.Row="0" Grid.Column="1"
+                        ImageSource="{x:Static resources:AppResources.DEITAR_IMG}"
+                        ContentLayout="Top,10"
+                        Pressed="OnComandoPressed"
+						Released="OnComandoReleased"
+                        CommandParameter="deitar.json"
+                        Style="{StaticResource BotaoCinza}"/>
+				<!-- Caminhar frente -->
+				<Button Grid.Row="1" Grid.Column="0"
+                        ImageSource="{x:Static resources:AppResources.CAMINHAR_IMG}"
+                        ContentLayout="Top,10"
+                        Pressed="OnComandoPressed"
+						Released="OnComandoReleased"
+                        CommandParameter="caminhar.json"
+                        Style="{StaticResource BotaoCinza}"/>
+				<!-- Caminhar trás -->
+				<Button Grid.Row="1" Grid.Column="1"
+                        ImageSource="{x:Static resources:AppResources.CAMINHAR_TRAS_IMG}"
+                        ContentLayout="Top,10"
+                        Pressed="OnComandoPressed"
+						Released="OnComandoReleased"
+                        CommandParameter="caminharTras.json"
+                        Style="{StaticResource BotaoCinza}"/>
+				<!-- Girar para direita -->
+				<Button Grid.Row="2" Grid.Column="0"
+                        ImageSource="{x:Static resources:AppResources.GIRAR_DIREITA_IMG}"
+                        ContentLayout="Top,10"
+                        Pressed="OnComandoPressed"
+						Released="OnComandoReleased"
+                        CommandParameter="girarDireita.json"
+                        Style="{StaticResource BotaoCinza}"/>
+				<!-- Girar para esquerda -->
+				<Button Grid.Row="2" Grid.Column="1"
+						CornerRadius="20"
+                        ImageSource="{x:Static resources:AppResources.GIRAR_ESQUERDA_IMG}"
+                        ContentLayout="Top,10"
+                        Pressed="OnComandoPressed"
+						Released="OnComandoReleased"
+                        CommandParameter="girarEsquerda.json"
+                        Style="{StaticResource BotaoCinza}"/>
+				<!-- sentar -->
+				<Button Grid.Row="3" Grid.Column="0"
+						CornerRadius="20"
+                        ImageSource="{x:Static resources:AppResources.SENTAR_IMG}"
+                        ContentLayout="Top,10"
+                        Pressed="OnComandoPressed"
+						Released="OnComandoReleased"
+                        CommandParameter="sentar.json"
+                        Style="{StaticResource BotaoCinza}"/>
+				<!-- levantar a pata -->
+				<Button Grid.Row="3" Grid.Column="1"
+						CornerRadius="20"
+                        ImageSource="{x:Static resources:AppResources.LEVANTAR_PATA_IMG}"
+                        ContentLayout="Top,10"
+                        Pressed="OnComandoPressed"
+						Released="OnComandoReleased"
+                        CommandParameter="levantarPata.json"
+                        Style="{StaticResource BotaoCinza}"/>
+			</Grid>
+
+			<!-- Estado do robô -->
+			<Frame Padding="5" BorderColor="Black" BackgroundColor="WhiteSmoke">
+				<Frame.GestureRecognizers>
+					<TapGestureRecognizer Tapped="NavegarParaInformacoesDoRobo"/>
+				</Frame.GestureRecognizers>
+				<HorizontalStackLayout>
+					<Label Text="{x:Static resources:AppResources.ROBO}" FontAttributes="Bold"/>
+					<Label x:Name="EstadoRoboLabel" Text="{x:Static resources:AppResources.DESCONECTADO}"/>
+					<Ellipse WidthRequest="15" HeightRequest="15" Fill="Red" x:Name="EstadoRobo"
+                             VerticalOptions="Center" Margin="20,0,0,0"/>
+				</HorizontalStackLayout>
+			</Frame>
+			<!-- Estado do Simulador -->
+
+			<Frame Padding="5" BorderColor="MidnightBlue" BackgroundColor="WhiteSmoke">
+				<Frame.GestureRecognizers>
+					<TapGestureRecognizer Tapped="NavegarParaInformacoesDoRobo"/>
+				</Frame.GestureRecognizers>
+				<HorizontalStackLayout>
+					<Label Text="{x:Static resources:AppResources.SIMULADOR}" FontAttributes="Bold"/>
+					<Label x:Name="EstadoDoSimuladorLabel" Text="{x:Static resources:AppResources.DESCONECTADO}"/>
+					<Ellipse WidthRequest="15" HeightRequest="15" Fill="Red" x:Name="EstadoSimulador"
+                 VerticalOptions="Center" Margin="20,0,0,0"/>
+				</HorizontalStackLayout>
+			</Frame>
+
+			<!-- Tensão da bateria dos servomotres -->
+			<Frame Padding="5" BorderColor="MidnightBlue" BackgroundColor="WhiteSmoke">
+				<Frame.GestureRecognizers>
+					<TapGestureRecognizer Tapped="NavegarParaInformacoesDoRobo"/>
+				</Frame.GestureRecognizers>
+				<HorizontalStackLayout>
+					<Label Text="{x:Static resources:AppResources.SERVO_VOLTAGE}" FontAttributes="Bold"/>
+					<Label x:Name="TensaoBateriaServomotoresLabel" Text="-- V"/>
+					<Image Source="bateria.png" WidthRequest="20" HeightRequest="20"
+                           VerticalOptions="Center" Margin="10,0,0,0"/>
+				</HorizontalStackLayout>
+			</Frame>
+
+			<!-- Tensão da bateria do microcontrolador -->
+			<Frame Padding="5" BorderColor="MidnightBlue" BackgroundColor="WhiteSmoke">
+				<Frame.GestureRecognizers>
+					<TapGestureRecognizer Tapped="NavegarParaInformacoesDoRobo"/>
+				</Frame.GestureRecognizers>
+				<HorizontalStackLayout>
+					<Label Text="{x:Static resources:AppResources.MICRO_VOLTAGE}" FontAttributes="Bold"/>
+					<Label x:Name="TensaoBateriaMicroLabel" Text="-- V"/>
+					<Image Source="bateria.png" WidthRequest="20" HeightRequest="20"
+                           VerticalOptions="Center" Margin="10,0,0,0"/>
+				</HorizontalStackLayout>
+			</Frame>
+
+			<!-- Corrente -->
+			<Frame Padding="5" BorderColor="MidnightBlue" BackgroundColor="WhiteSmoke">
+				<Frame.GestureRecognizers>
+					<TapGestureRecognizer Tapped="NavegarParaInformacoesDoRobo"/>
+				</Frame.GestureRecognizers>
+				<HorizontalStackLayout>
+					<Label Text="{x:Static resources:AppResources.CORRENTE_BATERIA}" FontAttributes="Bold"/>
+					<Label x:Name="CorrenteLabel" Text="-- mA"/>
+					<Image Source="alerta.png" WidthRequest="20" HeightRequest="20"
+                           VerticalOptions="Center" Margin="10,0,0,0"/>
+				</HorizontalStackLayout>
+			</Frame>
+
+			<Grid ColumnDefinitions="*,*"
+				RowDefinitions="Auto,Auto,Auto"
+				ColumnSpacing="5"
+				
+				RowSpacing="20">
+				<!-- Configurar Sequencias de Posturas -->
+				<Button Grid.Row="0" Grid.Column="0"
+					Text="{x:Static resources:AppResources.CONFIGURAR_MOVIMENTOS}"
+					ContentLayout="Top,10"
+					LineBreakMode="WordWrap"
+					Clicked="IrParaSequenciaDePosturas"
+					Style="{StaticResource BotaoCinza}"/>
+
+				<Button Grid.Row="0" Grid.Column="1"
+					Text="{x:Static resources:AppResources.CONECTAR_SIMULADOR}"
+					HeightRequest="60"	
+					ContentLayout="Top,10"
+					LineBreakMode="WordWrap"
+					Clicked="ConectarAoSimulador_Clicked"
+					Style="{StaticResource BotaoCinza}"/>
+			</Grid>
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentPage>

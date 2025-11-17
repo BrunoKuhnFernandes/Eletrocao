@@ -1,0 +1,122 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EletrocaoMauiApp.Views.JuntasPage"
+             NavigationPage.HasNavigationBar="False"
+			 xmlns:converters="clr-namespace:EletrocaoMauiApp.Converters"
+             Background="{StaticResource GradientBackground}">
+
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<converters:NomeParaImagemConverter x:Key="NomeParaImagemConverter"/>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+
+	<ScrollView>
+		<VerticalStackLayout Padding="5" Spacing="5">
+
+			<Grid ColumnDefinitions="*,Auto,Auto,Auto" Padding="10,0" VerticalOptions="Center">
+				<!-- Título -->
+				<Label Text="Juntas"
+                   FontSize="30"
+				   FontAttributes="Bold"
+	               FontFamily="Jost"
+                   TextColor="Black"
+                   HorizontalOptions="Start"/>
+				<!-- Botão Configuracoes -->
+				<Button Text="➕"
+                    Grid.Column="1"
+                    FontSize="20"
+                    TextColor="Black"
+                    BackgroundColor="Transparent"
+                    Clicked="CriarJunta_Clicked"/>
+
+				<!-- Botão Configuracoes -->
+				<Button Text="📥"
+                    Grid.Column="2"
+                    FontSize="20"
+                    TextColor="Black"
+                    BackgroundColor="Transparent"
+                    Clicked="CarregarConfiguracoes"/>
+
+				<!-- Botão Sair -->
+				<Button Text="↩︎"
+                    Grid.Column="3"
+                    FontSize="23"
+                    TextColor="Black"
+                    BackgroundColor="Transparent"
+                    Clicked="VoltarParaPaginaDeControle"/>
+			</Grid>
+
+			<Label x:Name="LblAviso"
+               Text="Nenhuma junta criada."
+               FontSize="15"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               IsVisible="False"/>
+
+			<!-- Lista de juntas dentro do ScrollView -->
+			<CollectionView x:Name="CvJuntas"
+                ItemsSource="{Binding Juntas}"
+                SelectionMode="None"
+                Margin="10">
+
+				<CollectionView.ItemTemplate>
+					<DataTemplate>
+						<Frame Padding="10"
+                           Margin="3"
+                           HeightRequest="100"
+                           CornerRadius="15"
+                           BorderColor="MidnightBlue"
+                           BackgroundColor="WhiteSmoke"
+                           HasShadow="True">
+							<Grid ColumnDefinitions="*, *, *" RowDefinitions="Auto, Auto" ColumnSpacing="10" RowSpacing="5">
+								<Grid.GestureRecognizers>
+									<TapGestureRecognizer Tapped="OnJunta_Tapped"/>
+								</Grid.GestureRecognizers>
+								<!-- Imagem ocupa duas linhas -->
+								<Image Grid.Row="0" Grid.RowSpan="2"
+                                    Grid.Column="0"
+                                    Source="{Binding Nome, Converter={StaticResource NomeParaImagemConverter}}" 
+                                    HeightRequest="70"
+                                    WidthRequest="70"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"/>
+
+								<!-- Nome da junta -->
+								<Label Grid.Row="0" Grid.Column="1"
+									Grid.ColumnSpan="2"
+                                    Text="{Binding Nome}"
+                                    FontAttributes="Bold"
+                                    FontSize="14"
+                                    TextColor="Black"
+                                    LineBreakMode="WordWrap"
+                                    MaxLines="2"/>
+
+								<!-- Pino PWM -->
+								<Label Grid.Row="1" Grid.Column="1"
+                                    Text="{Binding PwmPin, StringFormat='Pino PWM: {0}'}"
+                                    FontAttributes="None"
+                                    FontSize="12"
+                                    TextColor="DimGray"/>
+
+								<!-- Invertido -->
+								<Label Text="Invertido"
+                                    FontSize="12"
+                                    TextColor="DimGray"
+                                    Grid.Row="1" Grid.Column="2"
+									HorizontalOptions="Start"
+                                    VerticalOptions="Start"
+                                    IsVisible="{Binding Invertido}"/>
+							</Grid>
+						</Frame>
+					</DataTemplate>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
+
+		</VerticalStackLayout>
+	</ScrollView>
+
+
+</ContentPage>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EletrocaoMauiApp.Views.CarregarJuntasPage"
+			 NavigationPage.HasBackButton="True"
+			 NavigationPage.HasNavigationBar="False"
+			 Background="{StaticResource GradientBackground}">
+	<StackLayout Padding="10">
+		<Grid ColumnDefinitions="*,Auto" Padding="10,0" VerticalOptions="Center">
+			<!-- Título -->
+			<Label Text="Carregar configurações das juntas"
+                   FontSize="17"
+                   FontAttributes="Bold"
+				   FontFamily="Jost"
+                   TextColor="Black"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"/>
+			<!-- Botão Sair -->
+			<Button Text="↩"
+                    Grid.Column="3"
+                    FontSize="23"
+                    TextColor="Black"
+					HorizontalOptions="End"
+                    BackgroundColor="Transparent"
+                    Clicked="NavegarParaJuntas"/>
+		</Grid>
+
+		<Frame BackgroundColor="Transparent" BorderColor="Transparent">
+			<Label Text="📥" FontSize="50" HorizontalOptions="Center"/>
+		</Frame>
+		<Button x:Name="Enviar"
+				HorizontalOptions="Center"
+				WidthRequest="200"
+                Text="Enviar juntas"
+                Clicked="Enviar_Clicked"
+				Style="{StaticResource BotaoCinza}"/>
+
+		<Button x:Name="Receber"
+				HorizontalOptions="Center"
+				WidthRequest="200"
+                Text="Carregar juntas"
+                Clicked="Receber_Clicked"
+				Style="{StaticResource BotaoCinza}"/>
+		<ActivityIndicator x:Name="indicadorDeAtividadeCarregar" IsRunning="{Binding ocupado}"
+                   VerticalOptions="Center" HorizontalOptions="Center" Color="MidnightBlue" />
+	</StackLayout>
+</ContentPage>

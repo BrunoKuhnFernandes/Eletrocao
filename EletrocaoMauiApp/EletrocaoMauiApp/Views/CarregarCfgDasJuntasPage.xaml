@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EletrocaoMauiApp.Views.CarregarCfgDasJuntasPage"
+             NavigationPage.HasNavigationBar="False"
+             Background="{StaticResource GradientBackground}">
+
+	<VerticalStackLayout Padding="5" Spacing="5">
+
+		<!-- Cabeçalho com título e botões -->
+		<Grid ColumnDefinitions="*,Auto,Auto,Auto" Padding="0,0" VerticalOptions="Center">
+			<!-- Título -->
+			<Label Text="Carregar configurações das juntas"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   FontFamily="Jost"
+                   TextColor="Black"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"/>
+			<!-- Botão Sair -->
+			<Button Text="↩︎"
+                    Grid.Column="3"
+                    FontSize="23"
+                    TextColor="Black"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="End"
+                    Clicked="NavegarParaJuntas"/>
+		</Grid>
+
+		<!-- Ícone principal -->
+		<Label Text="📥" FontSize="70" HorizontalOptions="Center"/>
+
+		<!-- Botões de ação -->
+		<Button x:Name="Receber_Btn"
+                Text="Receber"
+				FontFamily="Jost"
+				FontSize="17"
+                Clicked="Receber_Clicked"
+				WidthRequest="200"
+                Style="{StaticResource BotaoCinza}" />
+
+		<Button x:Name="Enviar_Btn"
+                Text="Enviar"
+				FontFamily="Jost"
+                FontSize="17"
+                Clicked="Enviar_Clicked"
+				WidthRequest="200"
+                Style="{StaticResource BotaoCinza}" />
+
+		<!-- Indicador de carregamento -->
+		<ActivityIndicator x:Name="indicadorDeAtividadeCarregar"
+                           IsRunning="False"
+                           Color="MidnightBlue"
+                           WidthRequest="40"
+                           HeightRequest="40"
+                           HorizontalOptions="Center" />
+	</VerticalStackLayout>
+</ContentPage>

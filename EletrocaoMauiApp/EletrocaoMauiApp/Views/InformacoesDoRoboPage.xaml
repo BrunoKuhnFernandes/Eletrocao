@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             x:Class="EletrocaoMauiApp.Views.InformacoesDoRoboPage"
+             NavigationPage.HasNavigationBar="False"
+             Background="{StaticResource GradientBackground}">
+
+	<ScrollView>
+		<VerticalStackLayout Padding="10" Spacing="10">
+			<!-- Cabeçalho -->
+			<Grid ColumnDefinitions="*,Auto,Auto,Auto" Padding="0,0" VerticalOptions="Center">
+				<!-- Título -->
+				<Label Text="Informações do robô"
+					FontSize="25"
+					FontAttributes="Bold"
+					FontFamily="Jost"
+					TextColor="Black"
+					VerticalOptions="Center"
+					HorizontalOptions="Start"/>
+				<!-- Botão voltar -->
+				<Button Text="↩︎"
+					Grid.Column="3"
+					FontSize="23"
+					TextColor="Black"
+					BackgroundColor="Transparent"
+					HorizontalOptions="End"
+					Clicked="Voltar_Clicked"/>
+			</Grid>
+			<!-- Estado do Robô-->
+			<Frame BackgroundColor="WhiteSmoke" Padding="10" CornerRadius="15" BorderColor="MidnightBlue">
+				<HorizontalStackLayout>
+					<Label Text="Estado do robô:" FontFamily="Jost" FontAttributes="Bold" FontSize="20" />
+					<Label x:Name="EstadoDoRobo_Lbl" FontFamily="Jost" Text="" Margin="10,0,0,0" FontSize="20" />
+				</HorizontalStackLayout>
+			</Frame>
+
+			<!-- Mensagem do robô-->
+			<Frame x:Name="FrameMensagem" IsVisible="False" BackgroundColor="WhiteSmoke" Padding="10" CornerRadius="15" BorderColor="MidnightBlue">
+				<VerticalStackLayout>
+					<Label Text="Última mensagem recebida:" FontFamily="Jost" FontAttributes="Bold" FontSize="20" LineBreakMode="WordWrap"/>
+					<Label x:Name="Mensagem_Lbl" Text="" FontFamily="Jost" Margin="10,0,0,0" FontSize="12" LineBreakMode="WordWrap" />
+				</VerticalStackLayout>
+			</Frame>
+
+			<Frame x:Name="FrameMensagensRecebidas" BackgroundColor="White" Padding="10" CornerRadius="15" BorderColor="MidnightBlue" IsVisible="False">
+				<VerticalStackLayout>
+					<Label x:Name="MensagensRecebidosLabel"  FontFamily="Jost" Text=""  Margin="10,0,0,0" FontSize="12" />
+					<Label x:Name="MensagensPerdidasLabel" FontFamily="Jost" Text="" Margin="10,0,0,0" FontSize="12" />
+					<Label x:Name="TaxaDeRecebimentoLabel" FontFamily="Jost" Text="" Margin="10,0,0,0" FontSize="12" />
+				</VerticalStackLayout>
+			</Frame>
+			
+			<!-- Gráfico da Corrente -->
+			<Frame BackgroundColor="White" Padding="10" CornerRadius="15" BorderColor="MidnightBlue" HasShadow="True">
+				<VerticalStackLayout>
+					<Label x:Name="LabelGraficoCorrente" 
+							Text="Sem dados da corrente"
+							FontSize="20"
+						    FontFamily="Jost"
+							FontAttributes="Bold"
+							HorizontalOptions="Center" />
+					<microcharts:ChartView x:Name="CorrenteChart" HeightRequest="200" IsVisible="False"/>
+				</VerticalStackLayout>
+			</Frame>
+
+			<!-- Gráfico de tensão da bateria dos servomotores -->
+			<Frame BackgroundColor="White" Padding="10" CornerRadius="15" BorderColor="MidnightBlue" HasShadow="True" >
+				<VerticalStackLayout>
+					<Label x:Name="LabelGraficoTensaoBateriaServomotores" 
+						   Text="Sem dados da Tensão da Bateria"
+                           FontSize="20"
+						   FontFamily="Jost"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center" />
+					<microcharts:ChartView x:Name="TensaoBateriaServomotoresChart" HeightRequest="200" IsVisible="False"/>
+				</VerticalStackLayout>
+			</Frame>
+			
+			<!-- Gráfico de tensão da bateria do microcontrolador -->
+			<Frame BackgroundColor="White" Padding="10" CornerRadius="15" BorderColor="MidnightBlue" HasShadow="True" >
+				<VerticalStackLayout>
+					<Label x:Name="LabelGraficoTensaoBateriaMicro" 
+						   Text="Sem dados da Tensão da Bateria"
+                           FontSize="20"
+						   FontFamily="Jost"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center" />
+					<microcharts:ChartView x:Name="TensaoBateriaMicroChart" HeightRequest="200" IsVisible="False"/>
+				</VerticalStackLayout>
+			</Frame>
+
+			<Frame BackgroundColor="White" Padding="10" CornerRadius="15" BorderColor="MidnightBlue" HasShadow="True" >
+				<VerticalStackLayout>
+					<Label x:Name="LabelGraficoContagemDePacotes" 
+						   Text="Contagem de Pacotes"
+                           FontSize="20"
+						   FontFamily="Jost"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center" />
+					<microcharts:ChartView x:Name="ContagemDePacotesChart" HeightRequest="200" IsVisible="true"/>
+				</VerticalStackLayout>
+			</Frame>
+
+
+
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentPage>

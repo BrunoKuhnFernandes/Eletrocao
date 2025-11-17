@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+	<Style x:Key="BotaoCinza" TargetType="Button">
+		<Setter Property="CornerRadius" Value="20" />
+		<Setter Property="BorderColor" Value="MidnightBlue" />
+		<Setter Property="BorderWidth" Value="2.5" />
+		<Setter Property="TextColor" Value="Black" />
+		<Setter Property="BackgroundColor" Value="WhiteSmoke" />
+		<Setter Property="FontAttributes" Value="Bold"/>
+		<Setter Property="FontFamily" Value="JostRegular" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="MaximumHeightRequest" Value="110" />
+	</Style>
+
+	<Style x:Key="BotaoAzul" TargetType="Button">
+		<Setter Property="CornerRadius" Value="8" />
+		<Setter Property="BorderColor" Value="MidnightBlue" />
+		<Setter Property="BorderWidth" Value="1.5" />
+		<Setter Property="TextColor" Value="MidnightBlue" />
+		<Setter Property="BackgroundColor" Value="LightBlue" />
+		<Setter Property="FontAttributes" Value="Bold"/>
+		<Setter Property="FontFamily" Value="JostRegular" />
+		<Setter Property="FontSize" Value="18" />
+	</Style>
+
+	<Style x:Key="BotaCinza" TargetType="Button">
+		<Setter Property="CornerRadius" Value="8" />
+		<Setter Property="BorderColor" Value="MidnightBlue" />
+		<Setter Property="BorderWidth" Value="1.5" />
+		<Setter Property="TextColor" Value="MidnightBlue" />
+		<Setter Property="BackgroundColor" Value="LightGray" />
+		<Setter Property="FontAttributes" Value="Bold"/>
+		<Setter Property="FontFamily" Value="JostRegular" />
+		<Setter Property="FontSize" Value="18" />
+	</Style>
+
+
+</ResourceDictionary>

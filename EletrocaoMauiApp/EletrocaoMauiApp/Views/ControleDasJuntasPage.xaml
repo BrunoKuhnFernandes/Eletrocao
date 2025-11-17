@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EletrocaoMauiApp.Views.ControleDasJuntasPage"
+             NavigationPage.HasNavigationBar="False"
+             Background="{StaticResource GradientBackground}">
+
+	<ScrollView>
+		<VerticalStackLayout Padding="5" Spacing="5">
+
+			<Grid ColumnDefinitions="*,Auto,Auto,Auto" Padding="0,0" VerticalOptions="Center">
+				<!-- Título -->
+				<Label Text="Controle das juntas"
+					FontSize="25"
+					FontAttributes="Bold"
+					FontFamily="Jost"
+					TextColor="Black"
+					VerticalOptions="Center"
+					HorizontalOptions="Start"/>
+				<!-- Botão Sair -->
+				<Button Text="↩︎"
+					Grid.Column="3"
+					FontSize="23"
+					TextColor="Black"
+					BackgroundColor="Transparent"
+					HorizontalOptions="End"
+					Clicked="NavegarParaJuntas"/>
+			</Grid>
+
+			<Picker x:Name="Picker"
+            Title="Selecione uma perna para controlar:"
+					FontFamily="Jost"
+					FontAttributes="Bold"
+					FontSize="17"
+            SelectedIndexChanged="SelecionarPerna">
+				<Picker.Items>
+					<x:String>Perna esquerda frontal</x:String>
+					<x:String>Perna direita frontal</x:String>
+					<x:String>Perna esquerda traseira</x:String>
+					<x:String>Perna direita traseira</x:String>
+				</Picker.Items>
+			</Picker>
+
+			<Frame BackgroundColor="WhiteSmoke"
+			   x:Name="FrameRadioBtns"
+			   Padding="10"
+			   CornerRadius="15"
+			   IsVisible="False"
+			   BorderColor="MidnightBlue"
+			   HasShadow="True">
+				<VerticalStackLayout>
+					<Label Text="Modo de controle:" FontSize="14" FontFamily="Jost" FontAttributes="Bold"/>
+					<HorizontalStackLayout Spacing="20">
+						<RadioButton x:Name="RadioAngulo" Content="Angulo" GroupName="Direcao" IsChecked="True"
+                         CheckedChanged="ControlarRadioChanged"  FontFamily="Jost" />
+						<RadioButton x:Name="RadioPwm" Content="PWM" GroupName="Direcao"
+                         CheckedChanged="ControlarRadioChanged" FontFamily="Jost" />
+						<RadioButton x:Name="RadioCoordenadas" Content="Coordenadas" GroupName="Direcao"
+						 CheckedChanged="ControlarRadioChanged" FontFamily="Jost" />
+					</HorizontalStackLayout>
+				</VerticalStackLayout>
+			</Frame>
+			<!-- Controle 1 -->
+			<Frame BackgroundColor="WhiteSmoke"
+				   x:Name="FrameControle1"
+				   IsVisible="False"
+                   Padding="10"
+                   CornerRadius="15"
+                   BorderColor="MidnightBlue"
+                   HasShadow="True">
+				<VerticalStackLayout Spacing="5">
+					<Label Text="Controle 1" x:Name="Label1" FontFamily="Jost" FontSize="14" FontAttributes="Bold"/>
+					<HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+						<Button Text="-" WidthRequest="35" HeightRequest="35"
+								Style="{StaticResource BotaCinza}"
+								Clicked="DiminuirControle1"/>
+						<Label x:Name="LabelControle1" Text="0" VerticalOptions="Center" FontSize="16"/>
+						<Button Text="+" WidthRequest="35" HeightRequest="35"
+								Style="{StaticResource BotaCinza}"
+								Clicked="AumentarControle1"/>
+					</HorizontalStackLayout>
+					<Slider x:Name="SliderControle1" ValueChanged="Slider_ValueChanged" Minimum="0" Maximum="600" ThumbColor="CornflowerBlue" MinimumTrackColor="CornflowerBlue"/>
+				</VerticalStackLayout>
+			</Frame>
+			<!-- Controle 2 -->
+			<Frame BackgroundColor="WhiteSmoke"
+				x:Name="FrameControle2"
+				IsVisible="False"
+			   Padding="10"
+			   CornerRadius="15"
+			   BorderColor="MidnightBlue"
+			   HasShadow="True">
+				<VerticalStackLayout Spacing="5">
+					<Label Text="Controle 2"  x:Name="Label2" FontFamily="Jost" FontSize="14" FontAttributes="Bold"/>
+					<HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+						<Button Text="-" Clicked="DiminuirControle2" WidthRequest="35" HeightRequest="35"
+					Style="{StaticResource BotaCinza}"/>
+						<Label x:Name="LabelControle2" Text="0" VerticalOptions="Center" FontSize="16"/>
+						<Button Text="+" Clicked="AumentarControle2" WidthRequest="35" HeightRequest="35"
+					Style="{StaticResource BotaCinza}"/>
+					</HorizontalStackLayout>
+					<Slider x:Name="SliderControle2" ValueChanged="Slider_ValueChanged" Minimum="0" Maximum="600" ThumbColor="CornflowerBlue" MinimumTrackColor="CornflowerBlue"/>
+				</VerticalStackLayout>
+			</Frame>
+			<!-- Controle 3 -->
+			<Frame BackgroundColor="WhiteSmoke"
+				x:Name="FrameControle3"
+				IsVisible="False"
+				Padding="10"
+				CornerRadius="15"
+				BorderColor="MidnightBlue"
+				HasShadow="True">
+				<VerticalStackLayout Spacing="5">
+					<Label Text="Controle 3" x:Name="Label3" FontFamily="Jost" FontSize="14" FontAttributes="Bold"/>
+					<HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+						<Button Text="-" Clicked="DiminuirControle3" WidthRequest="35" HeightRequest="35"
+					Style="{StaticResource BotaCinza}"/>
+						<Label x:Name="LabelControle3" Text="0" VerticalOptions="Center" FontSize="16"/>
+						<Button Text="+" Clicked="AumentarControle3" WidthRequest="35" HeightRequest="35"
+					Style="{StaticResource BotaCinza}"/>
+					</HorizontalStackLayout>
+					<Slider x:Name="SliderControle3" ValueChanged="Slider_ValueChanged" Minimum="0" Maximum="600" ThumbColor="CornflowerBlue" MinimumTrackColor="CornflowerBlue"/>
+				</VerticalStackLayout>
+			</Frame>
+
+			<!-- Botões finais -->
+			<HorizontalStackLayout Spacing="10" HorizontalOptions="Center" Margin="0,10,0,10">
+				<Button Text="Enviar comando"
+						x:Name="ControlarBtn"
+						Clicked="ControlarJunta"
+						IsVisible="False"
+						WidthRequest="180"
+                        Style="{StaticResource BotaCinza}"/>
+			</HorizontalStackLayout>
+
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentPage>

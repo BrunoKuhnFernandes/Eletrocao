@@ -1,0 +1,8 @@
+{
+  "Nome": "levantarPata",
+  "Passos": null,
+  "Delay": null,
+  "Posturas": [
+    {"CoordenadasDosMembros": [ { "SiglaDoMembro": "EF", "X": 40, "Y": 200, "Z": 60 }, { "SiglaDoMembro": "DT", "X": 0, "Y": 90, "Z": 60 }, { "SiglaDoMembro": "DF", "X": 0, "Y": 80, "Z": 60 }, { "SiglaDoMembro": "ET", "X": 0, "Y": 90, "Z": 60 } ] }
+  ]
+}

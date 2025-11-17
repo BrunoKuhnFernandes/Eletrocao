@@ -1,0 +1,139 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EletrocaoMauiApp.Views.SequenciaDePosturasPage"
+             Background="{StaticResource GradientBackground}"
+             NavigationPage.HasNavigationBar="False">
+
+	<ScrollView>
+		<VerticalStackLayout Padding="10" Spacing="10">
+
+			<!-- Cabeçalho -->
+			<Grid ColumnDefinitions="*,Auto,Auto,Auto" Padding="0,0" VerticalOptions="Center">
+				<!-- Título -->
+				<Label Text="Configurar movimento"
+					FontSize="25"
+					FontAttributes="Bold"
+					FontFamily="Jost"
+					TextColor="Black"
+					VerticalOptions="Center"
+					HorizontalOptions="Start"/>
+				<!-- Botão Sair -->
+				<Button Text="↩︎"
+					Grid.Column="3"
+					FontSize="23"
+					TextColor="Black"
+					BackgroundColor="Transparent"
+					HorizontalOptions="End"
+					Clicked="Voltar_Clicked"/>
+			</Grid>
+
+			<!-- Selecionar sequência -->
+			<Frame BackgroundColor="WhiteSmoke"
+                   Padding="10"
+                   CornerRadius="15"
+                   BorderColor="MidnightBlue"
+                   HasShadow="True">
+				<VerticalStackLayout>
+					<Picker x:Name="PickerSequencia"
+                            Title="Escolha um movimento"
+                            SelectedIndexChanged="OnSequenciaSelecionada"
+                            FontFamily="Jost"/>
+				</VerticalStackLayout>
+			</Frame>
+
+			<Frame BackgroundColor="WhiteSmoke"
+			   Padding="10"
+			   CornerRadius="15"
+			   BorderColor="MidnightBlue"
+			   HasShadow="True">
+				<VerticalStackLayout Spacing="5">
+					<Label Text="Parâmetros"
+               FontFamily="Jost"
+               FontAttributes="Bold"
+               TextColor="Black"/>
+					<HorizontalStackLayout Spacing="10">
+						<Label Text="Passos:" FontFamily="Jost"/>
+						<Entry Text="{Binding Passos, Mode=TwoWay}" Keyboard="Numeric" WidthRequest="60"/>
+						<Label Text="Delay:" FontFamily="Jost"/>
+						<Entry Text="{Binding Delay, Mode=TwoWay}" Keyboard="Numeric" WidthRequest="60"/>
+						
+					</HorizontalStackLayout>
+				</VerticalStackLayout>
+			</Frame>
+
+			<!-- Posturas -->
+			<CollectionView x:Name="PosturasCollection"
+                            SelectionMode="None">
+				<CollectionView.ItemTemplate>
+					<DataTemplate>
+						<Frame BackgroundColor="LightBlue"
+                               Padding="10"
+                               CornerRadius="15"
+                               BorderColor="MidnightBlue"
+                               Margin="0,5">
+
+							<VerticalStackLayout Spacing="8">
+
+								<!-- Coordenadas -->
+								<CollectionView ItemsSource="{Binding CoordenadasDosMembros}"
+                                                SelectionMode="None">
+									<CollectionView.ItemTemplate>
+										<DataTemplate>
+											<Frame BackgroundColor="WhiteSmoke"
+                                                   Padding="8"
+                                                   CornerRadius="10"
+                                                   BorderColor="MidnightBlue"
+                                                   Margin="0,3">
+
+												<VerticalStackLayout>
+													<Label Text="{Binding SiglaDoMembro}"
+															FontAttributes="Bold"
+															TextColor="MidnightBlue"
+															FontFamily="Jost"/>
+													<Grid ColumnDefinitions="Auto,60,Auto,60,Auto,60"
+														  ColumnSpacing="6"
+														  Padding="0,5">
+														<Label Text="X:" FontFamily="Jost" VerticalOptions="Center" Grid.Column="0"/>
+														<Entry Text="{Binding X, Mode=TwoWay}" 
+														   Grid.Column="1"
+														   Keyboard="Numeric"/>
+														<Label Text="Y:" FontFamily="Jost" VerticalOptions="Center" Grid.Column="2"/>
+														<Entry Text="{Binding Y, Mode=TwoWay}"
+														   Grid.Column="3"
+														   Keyboard="Numeric"/>
+														<Label Text="Z:" FontFamily="Jost" VerticalOptions="Center" Grid.Column="4"/>
+														<Entry Text="{Binding Z, Mode=TwoWay}"
+														   Grid.Column="5"
+														   Keyboard="Numeric"/>
+													</Grid>
+												</VerticalStackLayout>
+											</Frame>
+										</DataTemplate>
+									</CollectionView.ItemTemplate>
+								</CollectionView>
+
+								<!-- Remover Postura -->
+								<Button Text="Remover Postura"
+                                        Clicked="OnRemoverPostura_Clicked"
+                                        CommandParameter="{Binding .}"
+                                        Style="{StaticResource BotaoCinza}"/>
+							</VerticalStackLayout>
+
+						</Frame>
+					</DataTemplate>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
+
+			<!-- Adicionar nova postura -->
+			<Button Text="+ Adicionar Postura"
+                    Clicked="OnAdicionarPostura_Clicked"
+                    Style="{StaticResource BotaoCinza}"/>
+
+			<!-- Salvar -->
+			<Button Text="Salvar"
+                    Clicked="OnSalvarSequencia_Clicked"
+                    Style="{StaticResource BotaoCinza}"
+                    Margin="0,0,0,20"/>
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentPage>

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EletrocaoMauiApp.Views.ConfiguracaoDaJuntaPage"
+             NavigationPage.HasNavigationBar="False"
+             Background="{StaticResource GradientBackground}">
+
+	<ScrollView>
+		<VerticalStackLayout Padding="5" Spacing="5">
+
+			<!-- Título da Página -->
+			<Grid ColumnDefinitions="*,Auto,Auto,Auto" Padding="0,0" VerticalOptions="Center">
+				<Label Text="Configurações da junta"
+                       FontSize="25"
+                       FontAttributes="Bold"
+                       FontFamily="Jost"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"/>
+				<Button Text="↩︎"
+                        Grid.Column="3"
+                        FontSize="23"
+                        TextColor="Black"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="End"
+                        Clicked="NavegarParaJuntas"/>
+			</Grid>
+
+			<!-- Nome -->
+			<Frame BackgroundColor="WhiteSmoke"
+                   Padding="10"
+                   CornerRadius="15"
+                   BorderColor="MidnightBlue"
+                   HasShadow="True">
+				<VerticalStackLayout Spacing="5">
+					<Label Text="Nome"
+                           FontSize="14"
+                           FontFamily="Jost"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+					<Entry x:Name="Nome_Entry"
+                           FontFamily="Jost"
+                           Placeholder="Insira o nome"
+                           PlaceholderColor="MidnightBlue"
+                           HorizontalOptions="Fill"
+                           Unfocused="Nome_Entry_Unfocused"/>
+				</VerticalStackLayout>
+			</Frame>
+
+			<!-- Pino PWM -->
+			<Frame BackgroundColor="WhiteSmoke"
+                   Padding="10"
+                   CornerRadius="15"
+                   BorderColor="MidnightBlue"
+                   HasShadow="True">
+				<HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+					<Label Text="Pino PWM"
+						   WidthRequest="100"
+                           FontSize="14"
+                           FontFamily="Jost"
+                           FontAttributes="Bold"
+                           TextColor="Black"
+                           VerticalOptions="Center"
+                           HorizontalOptions="StartAndExpand"/>
+					<Button Text="-" WidthRequest="35" HeightRequest="35"
+                            Clicked="OnDecreasePwmPin"
+                            Style="{StaticResource BotaCinza}"/>
+					<Label x:Name="LabelPwmPin" Text="0" WidthRequest="30"
+                           FontSize="16"
+                           TextColor="Black"
+                           VerticalOptions="Center"
+						   HorizontalOptions="End"/>
+					<Button Text="+" WidthRequest="35" HeightRequest="35"
+                            Clicked="OnIncreasePwmPin"
+                            Style="{StaticResource BotaCinza}"/>
+				</HorizontalStackLayout>
+			</Frame>
+
+			<!-- PWM Min -->
+			<Frame BackgroundColor="LightBlue"
+                   Padding="10"
+                   CornerRadius="15"
+                   BorderColor="MidnightBlue"
+                   HasShadow="True">
+				<VerticalStackLayout Spacing="5">
+					<HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+						<Label Text="PWM Min"
+							   WidthRequest="100"
+                               FontSize="14"
+                               FontFamily="Jost"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               HorizontalOptions="StartAndExpand"/>
+						<Button Text="-" WidthRequest="35" HeightRequest="35"
+                                Clicked="OnDecreasePwmMin"
+                                Style="{StaticResource BotaCinza}"/>
+						<Label x:Name="LabelPwmMin" Text="0" FontSize="16" WidthRequest="30"
+                               VerticalOptions="Center"/>
+						<Button Text="+" WidthRequest="35" HeightRequest="35"
+                                Clicked="OnIncreasePwmMin"
+                                Style="{StaticResource BotaCinza}"/>
+					</HorizontalStackLayout>
+					<Slider x:Name="SliderPwmMin" Minimum="0" Maximum="600"
+                            ThumbColor="CornflowerBlue"
+                            MinimumTrackColor="CornflowerBlue"
+                            HeightRequest="30"
+                            ValueChanged="OnSliderPwmMinChanged"/>
+				</VerticalStackLayout>
+			</Frame>
+
+			<!-- PWM Centro -->
+			<Frame BackgroundColor="LightBlue"
+                   Padding="10"
+                   CornerRadius="15"
+                   BorderColor="MidnightBlue"
+                   HasShadow="True">
+				<VerticalStackLayout Spacing="5">
+					<HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+						<Label Text="PWM Centro"
+							   WidthRequest="100"
+                               FontSize="14"
+                               FontFamily="Jost"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               HorizontalOptions="StartAndExpand"/>
+						<Button Text="-" WidthRequest="35" HeightRequest="35"
+                                Clicked="OnDecreasePwmCentro"
+                                Style="{StaticResource BotaCinza}"/>
+						<Label x:Name="LabelPwmCentro" Text="0" FontSize="16"
+							   WidthRequest="30"
+                               VerticalOptions="Center"/>
+						<Button Text="+" WidthRequest="35" HeightRequest="35"
+                                Clicked="OnIncreasePwmCentro"
+                                Style="{StaticResource BotaCinza}"/>
+					</HorizontalStackLayout>
+					<Slider x:Name="SliderPwmCentro" Minimum="0" Maximum="600"
+                            ThumbColor="CornflowerBlue"
+                            MinimumTrackColor="CornflowerBlue"
+                            HeightRequest="30"
+                            ValueChanged="OnSliderPwmCentroChanged"/>
+				</VerticalStackLayout>
+			</Frame>
+
+			<!-- PWM Max -->
+			<Frame BackgroundColor="LightBlue"
+                   Padding="10"
+                   CornerRadius="15"
+                   BorderColor="MidnightBlue"
+                   HasShadow="True">
+				<VerticalStackLayout Spacing="5">
+					<HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+						<Label Text="PWM Max"
+							   WidthRequest="100"
+                               FontSize="14"
+                               FontFamily="Jost"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               HorizontalOptions="StartAndExpand"/>
+						<Button Text="-" WidthRequest="35" HeightRequest="35"
+                                Clicked="OnDecreasePwmMax"
+                                Style="{StaticResource BotaCinza}"/>
+						<Label x:Name="LabelPwmMax" Text="0" FontSize="16" WidthRequest="30"
+                               VerticalOptions="Center"/>
+						<Button Text="+" WidthRequest="35" HeightRequest="35"
+                                Clicked="OnIncreasePwmMax"
+                                Style="{StaticResource BotaCinza}"/>
+					</HorizontalStackLayout>
+					<Slider x:Name="SliderPwmMax" Minimum="0" Maximum="600"
+                            ThumbColor="CornflowerBlue"
+                            MinimumTrackColor="CornflowerBlue"
+                            HeightRequest="30"
+                            ValueChanged="OnSliderPwmMaxChanged"/>
+				</VerticalStackLayout>
+			</Frame>
+
+			<!-- Ângulo Inicial -->
+			<Frame BackgroundColor="WhiteSmoke"
+                   Padding="10"
+                   CornerRadius="15"
+                   BorderColor="MidnightBlue"
+                   HasShadow="True">
+				<VerticalStackLayout Spacing="5">
+					<HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+						<Label Text="Ângulo inicial"
+							   WidthRequest="100"
+                               FontSize="14"
+                               FontFamily="Jost"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               HorizontalOptions="StartAndExpand"/>
+						<Button Text="-" WidthRequest="35" HeightRequest="35"
+                                Clicked="OnDecreaseAnguloInicial"
+                                Style="{StaticResource BotaCinza}"/>
+						<Label x:Name="LabelAnguloInicial" Text="0" FontSize="16" WidthRequest="30"
+                               VerticalOptions="Center"/>
+						<Button Text="+" WidthRequest="35" HeightRequest="35" 
+                                Clicked="OnIncreaseAnguloInicial"
+                                Style="{StaticResource BotaCinza}"/>
+					</HorizontalStackLayout>
+					<Slider x:Name="SliderAnguloInicial" Minimum="0" Maximum="180"
+                            ThumbColor="CornflowerBlue"
+                            MinimumTrackColor="CornflowerBlue"
+                            HeightRequest="30"
+                            ValueChanged="OnSliderAnguloInicialChanged"/>
+				</VerticalStackLayout>
+			</Frame>
+
+			<!-- Ângulo Mínimo -->
+			<Frame BackgroundColor="WhiteSmoke"
+                   Padding="10"
+                   CornerRadius="15"
+                   BorderColor="MidnightBlue"
+                   HasShadow="True">
+				<VerticalStackLayout Spacing="5">
+					<HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+						<Label Text="Ângulo mínimo"
+							   WidthRequest="100"
+                               FontSize="14"
+                               FontFamily="Jost"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               HorizontalOptions="StartAndExpand"/>
+						<Button Text="-" WidthRequest="35" HeightRequest="35"
+                                Clicked="OnDecreaseAnguloMin"
+                                Style="{StaticResource BotaCinza}"/>
+						<Label x:Name="LabelAnguloMin" Text="0" FontSize="16" WidthRequest="30"
+                               VerticalOptions="Center"/>
+						<Button Text="+" WidthRequest="35" HeightRequest="35"
+                                Clicked="OnIncreaseAnguloMin"
+                                Style="{StaticResource BotaCinza}"/>
+					</HorizontalStackLayout>
+					<Slider x:Name="SliderAnguloMin" Minimum="0" Maximum="180"
+                            ThumbColor="CornflowerBlue"
+                            MinimumTrackColor="CornflowerBlue"
+                            HeightRequest="30"
+                            ValueChanged="OnSliderAnguloMinChanged"/>
+				</VerticalStackLayout>
+			</Frame>
+
+			<!-- Ângulo Máximo -->
+			<Frame BackgroundColor="WhiteSmoke"
+                   Padding="10"
+                   CornerRadius="15"
+                   BorderColor="MidnightBlue"
+                   HasShadow="True">
+				<VerticalStackLayout Spacing="5">
+					<HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+						<Label Text="Ângulo máximo"
+							   WidthRequest="100"
+                               FontSize="14"
+                               FontFamily="Jost"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               HorizontalOptions="StartAndExpand"/>
+						<Button Text="-" WidthRequest="35" HeightRequest="35"
+                                Clicked="OnDecreaseAnguloMax"
+                                Style="{StaticResource BotaCinza}"/>
+						<Label x:Name="LabelAnguloMax" Text="0" FontSize="16" WidthRequest="30"
+                               VerticalOptions="Center"/>
+						<Button Text="+" WidthRequest="35" HeightRequest="35"
+                                Clicked="OnIncreaseAnguloMax"
+                                Style="{StaticResource BotaCinza}"/>
+					</HorizontalStackLayout>
+					<Slider x:Name="SliderAnguloMax" Minimum="0" Maximum="180"
+                            ThumbColor="CornflowerBlue"
+                            MinimumTrackColor="CornflowerBlue"
+                            HeightRequest="30"
+                            ValueChanged="OnSliderAnguloMaxChanged"/>
+				</VerticalStackLayout>
+			</Frame>
+
+			<!-- Direção -->
+			<Frame BackgroundColor="LightBlue"
+                   Padding="10"
+                   CornerRadius="15"
+                   BorderColor="MidnightBlue"
+                   HasShadow="True">
+				<VerticalStackLayout>
+					<HorizontalStackLayout Spacing="20" VerticalOptions="Center">
+						<Label Text="Direção:"
+							   WidthRequest="100"
+                               FontSize="14"
+                               FontFamily="Jost"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+						<RadioButton x:Name="RadioNormal" Content="Normal"
+                                     GroupName="Direcao"
+                                     CheckedChanged="OnDirecaoChanged"
+                                     FontFamily="Jost"/>
+						<RadioButton x:Name="RadioInvertido" Content="Invertido"
+                                     GroupName="Direcao"
+                                     CheckedChanged="OnDirecaoChanged"
+                                     FontFamily="Jost"/>
+					</HorizontalStackLayout>
+				</VerticalStackLayout>
+			</Frame>
+
+			<!-- Botões Finais -->
+			<HorizontalStackLayout Spacing="10" HorizontalOptions="Center" Margin="0,10,0,10">
+				<Button Text="Remover"
+                        Clicked="OnRemover"
+                        WidthRequest="130"
+                        Style="{StaticResource BotaoCinza}"/>
+				<Button Text="Salvar"
+                        Clicked="OnSalvar"
+                        WidthRequest="130"
+                        Style="{StaticResource BotaoCinza}"/>
+			</HorizontalStackLayout>
+
+		</VerticalStackLayout>
+	</ScrollView>
+</ContentPage>
