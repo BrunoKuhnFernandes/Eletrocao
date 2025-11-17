@@ -61,6 +61,24 @@ namespace EletrocaoMauiApp.Resources.Strings {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tempo médio de atraso dos comandos do robô:.
+        /// </summary>
+        public static string ATRASO_MEDIO_ROBO {
+            get {
+                return ResourceManager.GetString("ATRASO_MEDIO_ROBO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tempo médio de atraso dos comandos do simulador:.
+        /// </summary>
+        public static string ATRASO_MEDIO_SIMULADOR {
+            get {
+                return ResourceManager.GetString("ATRASO_MEDIO_SIMULADOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a caminharfrente.png.
         /// </summary>
         public static string CAMINHAR_IMG {
@@ -115,11 +133,20 @@ namespace EletrocaoMauiApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Corrente na bateria:.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Corrente na bateria.
         /// </summary>
         public static string CORRENTE_BATERIA {
             get {
                 return ResourceManager.GetString("CORRENTE_BATERIA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Corrente (mA).
+        /// </summary>
+        public static string CORRENTE_MA {
+            get {
+                return ResourceManager.GetString("CORRENTE_MA", resourceCulture);
             }
         }
         
@@ -142,6 +169,33 @@ namespace EletrocaoMauiApp.Resources.Strings {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Desvio padrão do robô:.
+        /// </summary>
+        public static string DESVIO_PADRAO_ROBO {
+            get {
+                return ResourceManager.GetString("DESVIO_PADRAO_ROBO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Desvio padrão do simulador:.
+        /// </summary>
+        public static string DESVIO_PADRAO_SIMULADOR {
+            get {
+                return ResourceManager.GetString("DESVIO_PADRAO_SIMULADOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Estado do robô:.
+        /// </summary>
+        public static string ESTADO_ROBO {
+            get {
+                return ResourceManager.GetString("ESTADO_ROBO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a girardireita.png.
         /// </summary>
         public static string GIRAR_DIREITA_IMG {
@@ -156,6 +210,15 @@ namespace EletrocaoMauiApp.Resources.Strings {
         public static string GIRAR_ESQUERDA_IMG {
             get {
                 return ResourceManager.GetString("GIRAR_ESQUERDA_IMG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Informações do robô.
+        /// </summary>
+        public static string INFORMACOES_ROBO {
+            get {
+                return ResourceManager.GetString("INFORMACOES_ROBO", resourceCulture);
             }
         }
         
@@ -178,7 +241,25 @@ namespace EletrocaoMauiApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Tensão da bateria do microcontrolador:.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Mensagens perdidas:.
+        /// </summary>
+        public static string MENSAGENS_PERDIDAS {
+            get {
+                return ResourceManager.GetString("MENSAGENS_PERDIDAS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Mensagens recebidas:.
+        /// </summary>
+        public static string MENSAGENS_RECEBIDAS {
+            get {
+                return ResourceManager.GetString("MENSAGENS_RECEBIDAS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tensão da bateria do microcontrolador.
         /// </summary>
         public static string MICRO_VOLTAGE {
             get {
@@ -214,7 +295,7 @@ namespace EletrocaoMauiApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Tensão da bateria dos servomotores:.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tensão da bateria dos servomotores.
         /// </summary>
         public static string SERVO_VOLTAGE {
             get {
@@ -228,6 +309,15 @@ namespace EletrocaoMauiApp.Resources.Strings {
         public static string SIMULADOR {
             get {
                 return ResourceManager.GetString("SIMULADOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Taxa de recebimento:.
+        /// </summary>
+        public static string TAXA_RECEBIMENTO {
+            get {
+                return ResourceManager.GetString("TAXA_RECEBIMENTO", resourceCulture);
             }
         }
     }

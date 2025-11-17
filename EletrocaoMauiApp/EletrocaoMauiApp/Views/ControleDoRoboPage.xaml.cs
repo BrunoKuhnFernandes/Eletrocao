@@ -1,7 +1,10 @@
-﻿using EletrocaoMauiApp.Mappers;
+﻿using Constantes;
+using EletrocaoMauiApp.Mappers;
 using EletrocaoMauiApp.Models;
 using EletrocaoMauiApp.Resources.Strings;
 using EletrocaoMauiApp.Services;
+using NLog;
+using System.Net.Sockets;
 using System.Text.Json;
 
 namespace EletrocaoMauiApp.Views;
@@ -12,13 +15,14 @@ public partial class ControleDoRoboPage : ContentPage
 	private readonly IConfiguracoesDasJuntasService _configuracoesDasJuntasService;
 	private bool _isPressed;
 	private CancellationTokenSource _cts;
-
+	private Dictionary<string, Action<string>> topicHandlers = new Dictionary<string, Action<string>>();
 
 	public ControleDoRoboPage(IHiveMqService mqService, IConfiguracoesDasJuntasService configuracoesDasJuntasService)
 	{
 		InitializeComponent();
 		_mqService = mqService;
 		_configuracoesDasJuntasService = configuracoesDasJuntasService;
+		topicHandlers.Add(Constantes.Topicos.TopicoParaInformacoesDoRobo, HandleInformacoesRobo);
 		this.IsBusy = false;
 	}
 
@@ -35,7 +39,19 @@ public partial class ControleDoRoboPage : ContentPage
 		_mqService.MessageReceived -= OnMessageReceived;
 	}
 
-	private async void OnMessageReceived(string message)
+
+	private async void OnMessageReceived(string topic, string message)
+	{
+		if (topicHandlers.TryGetValue(topic, out var handler))
+		{
+			handler(message); // Chama o handler correto
+		}
+		else
+		{
+			Console.WriteLine($"Nenhum handler para o tópico: {topic}");
+		}
+	}
+	private async void HandleInformacoesRobo(string message)
 	{
 		try
 		{
@@ -93,6 +109,10 @@ public partial class ControleDoRoboPage : ContentPage
 
 	private async void OnComandoPressed(object sender, EventArgs e)
 	{
+
+
+		long timestamp = await NPT.GetNtpUnixTimeMs();
+
 		if (sender is not Button button || button.CommandParameter is not string arquivoJson)
 			return;
 
@@ -112,10 +132,10 @@ public partial class ControleDoRoboPage : ContentPage
 			var sequencia = await CarregarSequenciaAsync(arquivoJson);
 			if (sequencia is null)
 				return;
-			var msgParar = JsonSerializer.Serialize(new { Nome = "Iniciar" });//Instrução para iniciar a sequência
-			_mqService.Publish(msgParar, Constantes.Topicos.TopicoParaInstrucoes);
+			var msgIniciar = JsonSerializer.Serialize(new { Nome = "Iniciar" });//Instrução para iniciar a sequência
+			_mqService.Publish(msgIniciar, Constantes.Topicos.TopicoParaInstrucoes);
 			// envia imediatamente
-			EnviarComando(sequencia, configuracoesDasJuntas);
+			EnviarComando(sequencia, configuracoesDasJuntas, timestamp);
 
 			// envia repetidamente enquanto pressionado
 			while (_isPressed && !_cts.Token.IsCancellationRequested)
@@ -169,9 +189,9 @@ public partial class ControleDoRoboPage : ContentPage
 			new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 	}
 
-	private void EnviarComando(SequenciaDePosturas sequencia, IEnumerable<ConfiguracoesDaJunta> configuracoesDasJuntas)
+	private void EnviarComando(SequenciaDePosturas sequencia, IEnumerable<ConfiguracoesDaJunta> configuracoesDasJuntas, long timeStamp)
 	{
-		(SequenciaDeComandosDasJuntas, SequenciaDeComandosDasJuntasEsp32) sequenciaDeComandosParaEsp32ESimulador = sequencia.MapearParaSequenciaDeComandos(configuracoesDasJuntas);
+		(SequenciaDeComandosDasJuntas, SequenciaDeComandosDasJuntasEsp32) sequenciaDeComandosParaEsp32ESimulador = sequencia.MapearParaSequenciaDeComandos(configuracoesDasJuntas, timeStamp);
 
 		var sequenciaDeComandos = JsonSerializer.Serialize(sequenciaDeComandosParaEsp32ESimulador.Item1);
 		var sequenciaDeComandosEsp32 = JsonSerializer.Serialize(sequenciaDeComandosParaEsp32ESimulador.Item2);
@@ -236,4 +256,6 @@ public partial class ControleDoRoboPage : ContentPage
 	{
 		await Navigation.PushAsync(new SequenciaDePosturasPage());
 	}
+
+
 }

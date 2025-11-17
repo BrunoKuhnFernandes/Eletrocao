@@ -4,14 +4,15 @@
              xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="EletrocaoMauiApp.Views.InformacoesDoRoboPage"
              NavigationPage.HasNavigationBar="False"
-             Background="{StaticResource GradientBackground}">
+             Background="{StaticResource GradientBackground}"
+			 xmlns:resources="clr-namespace:EletrocaoMauiApp.Resources.Strings">
 
 	<ScrollView>
-		<VerticalStackLayout Padding="10" Spacing="10">
+		<VerticalStackLayout Padding="10" Spacing="5">
 			<!-- Cabeçalho -->
 			<Grid ColumnDefinitions="*,Auto,Auto,Auto" Padding="0,0" VerticalOptions="Center">
 				<!-- Título -->
-				<Label Text="Informações do robô"
+				<Label Text="{x:Static resources:AppResources.INFORMACOES_ROBO}"
 					FontSize="25"
 					FontAttributes="Bold"
 					FontFamily="Jost"
@@ -30,7 +31,7 @@
 			<!-- Estado do Robô-->
 			<Frame BackgroundColor="WhiteSmoke" Padding="10" CornerRadius="15" BorderColor="MidnightBlue">
 				<HorizontalStackLayout>
-					<Label Text="Estado do robô:" FontFamily="Jost" FontAttributes="Bold" FontSize="20" />
+					<Label Text="{x:Static resources:AppResources.ESTADO_ROBO}" FontFamily="Jost" FontAttributes="Bold" FontSize="20" />
 					<Label x:Name="EstadoDoRobo_Lbl" FontFamily="Jost" Text="" Margin="10,0,0,0" FontSize="20" />
 				</HorizontalStackLayout>
 			</Frame>
@@ -45,12 +46,17 @@
 
 			<Frame x:Name="FrameMensagensRecebidas" BackgroundColor="White" Padding="10" CornerRadius="15" BorderColor="MidnightBlue" IsVisible="False">
 				<VerticalStackLayout>
-					<Label x:Name="MensagensRecebidosLabel"  FontFamily="Jost" Text=""  Margin="10,0,0,0" FontSize="12" />
-					<Label x:Name="MensagensPerdidasLabel" FontFamily="Jost" Text="" Margin="10,0,0,0" FontSize="12" />
-					<Label x:Name="TaxaDeRecebimentoLabel" FontFamily="Jost" Text="" Margin="10,0,0,0" FontSize="12" />
+					<Label x:Name="MensagensRecebidosLabel"  FontFamily="Jost" Text=""  Margin="10,0,0,0" FontSize="16" />
+					<Label x:Name="MensagensPerdidasLabel" FontFamily="Jost" Text="" Margin="10,0,0,0" FontSize="16" />
+					<Label x:Name="TaxaDeRecebimentoLabel" FontFamily="Jost" Text="" Margin="10,0,0,0" FontSize="16" />
+					<Label x:Name="AtrasoRobo_Lbl" Text="" FontFamily="Jost" Margin="10,0,0,0" FontSize="16" LineBreakMode="WordWrap" />
+					<Label x:Name="DesvioPadraoRobo_Lbl" Text="" FontFamily="Jost" Margin="10,0,0,0" FontSize="16" LineBreakMode="WordWrap" />
+					<Label x:Name="AtrasoSimulador_Lbl" Text="" FontFamily="Jost" Margin="10,0,0,0" FontSize="16" LineBreakMode="WordWrap" />
+					<Label x:Name="DesvioSimuladorRobo_Lbl" Text="" FontFamily="Jost" Margin="10,0,0,0" FontSize="16" LineBreakMode="WordWrap" />
 				</VerticalStackLayout>
 			</Frame>
-			
+
+
 			<!-- Gráfico da Corrente -->
 			<Frame BackgroundColor="White" Padding="10" CornerRadius="15" BorderColor="MidnightBlue" HasShadow="True">
 				<VerticalStackLayout>

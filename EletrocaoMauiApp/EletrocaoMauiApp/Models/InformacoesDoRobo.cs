@@ -9,4 +9,6 @@ public class InformacoesDoRobo
 	public string Mensagem { get; set; } = string.Empty;
 	public TimeSpan Timestamp { get; set; }
 	public int ContadorDeMensagens { get; set; }
+	public int TempoMedioDeAtrasoComandos { get; set; }
+	public int DesvioPadrao { get; set; }
 }

@@ -124,10 +124,10 @@
     <value>Simulator:</value>
   </data>
   <data name="SERVO_VOLTAGE" xml:space="preserve">
-    <value>Servomotors battery voltage:</value>
+    <value>Servomotors battery voltage</value>
   </data>
   <data name="MICRO_VOLTAGE" xml:space="preserve">
-    <value>Microcontroller battery voltage:</value>
+    <value>Microcontroller battery voltage</value>
   </data>
   <data name="CONFIGURAR_MOVIMENTOS" xml:space="preserve">
     <value>Movement configuration</value>
@@ -136,7 +136,7 @@
     <value>Connect to simulator</value>
   </data>
   <data name="CORRENTE_BATERIA" xml:space="preserve">
-    <value>Battery current:</value>
+    <value>Battery current (mA)</value>
   </data>
   <data name="LEVANTAR_IMG" xml:space="preserve">
     <value>stand.png</value>
@@ -173,5 +173,35 @@
   </data>
   <data name="SALVA_USUARIO_SENHA" xml:space="preserve">
     <value>Save username and password</value>
+  </data>
+  <data name="CORRENTE_MA" xml:space="preserve">
+    <value>Current(mA)</value>
+  </data>
+  <data name="MENSAGENS_RECEBIDAS" xml:space="preserve">
+    <value>Received messages:</value>
+  </data>
+  <data name="MENSAGENS_PERDIDAS" xml:space="preserve">
+    <value>Lost messages:</value>
+  </data>
+  <data name="TAXA_RECEBIMENTO" xml:space="preserve">
+    <value>Receiving rate:</value>
+  </data>
+  <data name="INFORMACOES_ROBO" xml:space="preserve">
+    <value>Robot data</value>
+  </data>
+  <data name="ESTADO_ROBO" xml:space="preserve">
+    <value>Robot state:</value>
+  </data>
+  <data name="ATRASO_MEDIO_ROBO" xml:space="preserve">
+    <value>Average delay for robot commands:</value>
+  </data>
+  <data name="ATRASO_MEDIO_SIMULADOR" xml:space="preserve">
+    <value>Average delay for simulator commands:</value>
+  </data>
+  <data name="DESVIO_PADRAO_ROBO" xml:space="preserve">
+    <value>Robot standard deviation:</value>
+  </data>
+  <data name="DESVIO_PADRAO_SIMULADOR" xml:space="preserve">
+    <value>SImulator standar deviation:</value>
   </data>
 </root>

@@ -80,7 +80,9 @@ public partial class ConexaoPage : ContentPage
 
 		try
 		{
-			 _hiveMqService.Subscribe(Constantes.Topicos.TopicoParaInformacoesDoRobo);
+			_hiveMqService.PrepareClientToSubscribe();
+			_hiveMqService.Subscribe(Constantes.Topicos.TopicoParaInformacoesDoRobo);
+			_hiveMqService.Subscribe(Constantes.Topicos.TopicoParaInformacoesDoSimulador);
 
 			_topicosJaSubscritos = true;
 			System.Diagnostics.Debug.WriteLine("Subscrições MQTT concluídas com sucesso!");

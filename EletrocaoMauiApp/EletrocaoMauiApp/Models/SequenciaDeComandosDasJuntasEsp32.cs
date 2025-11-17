@@ -7,4 +7,5 @@ public record SequenciaDeComandosDasJuntasEsp32(
 	ICollection<ComandosJuntasEsp32> Comandos,
 	int? Passos,
 	int? Delay,
-	int? Repeticoes);
+	int? Repeticoes,
+	long Timestamp);

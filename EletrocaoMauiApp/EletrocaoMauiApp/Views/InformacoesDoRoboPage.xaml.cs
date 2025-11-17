@@ -1,4 +1,7 @@
-﻿using EletrocaoMauiApp.Models;
+﻿
+using Constantes;
+using EletrocaoMauiApp.Models;
+using EletrocaoMauiApp.Resources.Strings;
 using EletrocaoMauiApp.Services;
 using SkiaSharp;
 using System.Text.Json;
@@ -17,13 +20,18 @@ public partial class InformacoesDoRoboPage : ContentPage
 	private int _mensagensPerdidas = 0;
 	private int _ultimaMensagemRecebida = 0;
 	private int _mensagensRecebidas = 0;
+	private Dictionary<string, Action<string>> topicHandlers = new Dictionary<string, Action<string>>();
+
 
 	public InformacoesDoRoboPage(IHiveMqService mqService)
 	{
 		InitializeComponent();
-
 		_mqService = mqService;
 		_mqService.MessageReceived += OnMessageReceived;
+
+		topicHandlers.Add(Constantes.Topicos.TopicoParaInformacoesDoRobo, HandleInformacoesRobo);
+		topicHandlers.Add(Constantes.Topicos.TopicoParaInformacoesDoSimulador, HandleInformacoesSimulador);
+
 	}
 
 	protected override void OnDisappearing()
@@ -34,7 +42,19 @@ public partial class InformacoesDoRoboPage : ContentPage
 		_mqService.MessageReceived -= OnMessageReceived;
 	}
 
-	private async void OnMessageReceived(string message)
+	private async void OnMessageReceived(string topic, string message)
+	{
+		if (topicHandlers.TryGetValue(topic, out var handler))
+		{
+			handler(message); // Chama o handler correto
+		}
+		else
+		{
+			Console.WriteLine($"Nenhum handler para o tópico: {topic}");
+		}
+	}
+
+	private async void HandleInformacoesRobo(string message)
 	{
 		try
 		{
@@ -54,7 +74,28 @@ public partial class InformacoesDoRoboPage : ContentPage
 				AtualizarGraficoTensaoBateriaMicro((float)informacaoDoRobo.TensaoBateriaMicro, informacaoDoRobo.Timestamp);
 				AtualizarGraficoCorrente((float)informacaoDoRobo.Corrente * -15, informacaoDoRobo.Timestamp);
 				AtualizarGraficoContagemDePacotes(informacaoDoRobo.ContadorDeMensagens, informacaoDoRobo.Timestamp);
+				AtualizarAtrasoComandosRobo(informacaoDoRobo.TempoMedioDeAtrasoComandos, informacaoDoRobo.DesvioPadrao);
 
+			});
+		}
+		catch (Exception ex)
+		{
+			await DisplayAlert("Erro", $"Erro ao desserializar JSON: {ex.Message}", "Ok");
+		}
+	}
+
+	private async void HandleInformacoesSimulador(string message)
+	{
+		try
+		{
+			var informacaoDoSimulador = JsonSerializer.Deserialize<InformacoesDoSimulador>(
+				message, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+			if (informacaoDoSimulador == null) return;
+
+			MainThread.BeginInvokeOnMainThread(() =>
+			{
+				AtualizarAtrasoComandosSimulador(informacaoDoSimulador.TempoMedioDeAtrasoComandos, informacaoDoSimulador.DesvioPadrao);
 			});
 		}
 		catch (Exception ex)
@@ -71,21 +112,34 @@ public partial class InformacoesDoRoboPage : ContentPage
 		int diferencaUltimaMensagem = contagemDeMensagens - _ultimaMensagemRecebida;
 		if (diferencaUltimaMensagem < 1)
 			return;
-		if(diferencaUltimaMensagem > 1)
+		if (diferencaUltimaMensagem > 1)
 			_mensagensPerdidas += diferencaUltimaMensagem - 1;
 
 
 		_ultimaMensagemRecebida = contagemDeMensagens;
 		_mensagensRecebidas++;
-		var taxaDeRecebimento = (_mensagensRecebidas / (double)(_mensagensRecebidas + _mensagensPerdidas))* 100;
+		var taxaDeRecebimento = (_mensagensRecebidas / (double)(_mensagensRecebidas + _mensagensPerdidas)) * 100;
 
 		MainThread.BeginInvokeOnMainThread(async () =>
 		{
 			FrameMensagensRecebidas.IsVisible = true;
-			MensagensRecebidosLabel.Text = $"Mensagens recebidas: {_mensagensRecebidas}";
-			MensagensPerdidasLabel.Text = $"Mensagens perdidas: {_mensagensPerdidas}";
-			TaxaDeRecebimentoLabel.Text = $"Taxa de recebimento: {taxaDeRecebimento.ToString("F2")}%";
+			MensagensRecebidosLabel.Text = $"{AppResources.MENSAGENS_RECEBIDAS} {_mensagensRecebidas}";
+			MensagensPerdidasLabel.Text = $"{AppResources.MENSAGENS_PERDIDAS} {_mensagensPerdidas}";
+			TaxaDeRecebimentoLabel.Text = $"{AppResources.TAXA_RECEBIMENTO} {taxaDeRecebimento.ToString("F2")}%";
 		});
+	}
+
+
+	private void AtualizarAtrasoComandosRobo(int atrasoRoboMs, int desvioPadrao)
+	{
+		AtrasoRobo_Lbl.Text = $"{AppResources.ATRASO_MEDIO_ROBO} {atrasoRoboMs}ms";
+		DesvioPadraoRobo_Lbl.Text = $"{AppResources.DESVIO_PADRAO_ROBO} {desvioPadrao}ms";
+	}
+
+	private void AtualizarAtrasoComandosSimulador(int atrasoSimuladorMs, int desvioPadrao)
+	{
+		AtrasoSimulador_Lbl.Text = $"{AppResources.ATRASO_MEDIO_SIMULADOR} {atrasoSimuladorMs}ms";
+		DesvioSimuladorRobo_Lbl.Text = $"{AppResources.DESVIO_PADRAO_SIMULADOR} {desvioPadrao}ms";
 	}
 
 
@@ -94,11 +148,11 @@ public partial class InformacoesDoRoboPage : ContentPage
 		if (string.IsNullOrWhiteSpace(estado))
 			EstadoDoRobo_Lbl.Text = "Estado indefinido";
 		else
-			EstadoDoRobo_Lbl.Text = estado;
+			EstadoDoRobo_Lbl.Text = AppResources.CONECTADO;
 		if (!string.IsNullOrEmpty(mensagem))
 		{
 			Mensagem_Lbl.Text = mensagem;
-			FrameMensagem.IsVisible = true;
+			//FrameMensagem.IsVisible = true;
 		}
 	}
 
@@ -112,7 +166,7 @@ public partial class InformacoesDoRoboPage : ContentPage
 		if (_tensoesBateriaServomotores.Count > numeroDePontos)
 			_tensoesBateriaServomotores.RemoveAt(0);
 
-		LabelGraficoTensaoBateriaServomotores.Text = "Tensão da bateria dos servomotores (V)";
+		LabelGraficoTensaoBateriaServomotores.Text = AppResources.SERVO_VOLTAGE;
 		TensaoBateriaServomotoresChart.IsVisible = true;
 
 		var entries = _tensoesBateriaServomotores.Select(p => new Microcharts.ChartEntry(p.Valor)
@@ -157,7 +211,7 @@ public partial class InformacoesDoRoboPage : ContentPage
 		if (_tensoesBateriaMicro.Count > numeroDePontos)
 			_tensoesBateriaMicro.RemoveAt(0);
 
-		LabelGraficoTensaoBateriaMicro.Text = "Tensão da bateria do microcontrolador (V)";
+		LabelGraficoTensaoBateriaMicro.Text = AppResources.MICRO_VOLTAGE;
 		TensaoBateriaMicroChart.IsVisible = true;
 
 		var entries = _tensoesBateriaMicro.Select(p => new Microcharts.ChartEntry(p.Valor)
@@ -202,7 +256,7 @@ public partial class InformacoesDoRoboPage : ContentPage
 		if (_correntes.Count > numeroDePontos)
 			_correntes.RemoveAt(0);
 
-		LabelGraficoCorrente.Text = "Corrente (mA)";
+		LabelGraficoCorrente.Text = AppResources.CORRENTE_BATERIA;
 		CorrenteChart.IsVisible = true;
 		var entries = _correntes.Select(p => new Microcharts.ChartEntry(p.Valor)
 		{
@@ -245,7 +299,7 @@ public partial class InformacoesDoRoboPage : ContentPage
 		if (_contagemDePacotes.Count > numeroDePontos)
 			_contagemDePacotes.RemoveAt(0);
 
-		LabelGraficoContagemDePacotes.Text = "Contagem de Pacotes";
+		LabelGraficoContagemDePacotes.Text = "Contagem de Mensagens";
 		ContagemDePacotesChart.IsVisible = true;
 
 		var entries = _contagemDePacotes.Select(p => new Microcharts.ChartEntry(p.Valor)

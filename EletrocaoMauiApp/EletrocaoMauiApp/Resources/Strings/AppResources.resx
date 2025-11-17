@@ -124,10 +124,10 @@
     <value>Simulador:</value>
   </data>
   <data name="SERVO_VOLTAGE" xml:space="preserve">
-    <value>Tensão da bateria dos servomotores:</value>
+    <value>Tensão da bateria dos servomotores</value>
   </data>
   <data name="MICRO_VOLTAGE" xml:space="preserve">
-    <value>Tensão da bateria do microcontrolador:</value>
+    <value>Tensão da bateria do microcontrolador</value>
   </data>
   <data name="CONFIGURAR_MOVIMENTOS" xml:space="preserve">
     <value>Configurar movimentos</value>
@@ -136,7 +136,7 @@
     <value>Conectar ao simulador</value>
   </data>
   <data name="CORRENTE_BATERIA" xml:space="preserve">
-    <value>Corrente na bateria:</value>
+    <value>Corrente na bateria</value>
   </data>
   <data name="LEVANTAR_IMG" xml:space="preserve">
     <value>levantar.png</value>
@@ -173,5 +173,35 @@
   </data>
   <data name="SALVA_USUARIO_SENHA" xml:space="preserve">
     <value>Salvar usuário e senha</value>
+  </data>
+  <data name="CORRENTE_MA" xml:space="preserve">
+    <value>Corrente (mA)</value>
+  </data>
+  <data name="MENSAGENS_RECEBIDAS" xml:space="preserve">
+    <value>Mensagens recebidas:</value>
+  </data>
+  <data name="MENSAGENS_PERDIDAS" xml:space="preserve">
+    <value>Mensagens perdidas:</value>
+  </data>
+  <data name="TAXA_RECEBIMENTO" xml:space="preserve">
+    <value>Taxa de recebimento:</value>
+  </data>
+  <data name="INFORMACOES_ROBO" xml:space="preserve">
+    <value>Informações do robô</value>
+  </data>
+  <data name="ESTADO_ROBO" xml:space="preserve">
+    <value>Estado do robô:</value>
+  </data>
+  <data name="ATRASO_MEDIO_ROBO" xml:space="preserve">
+    <value>Tempo médio de atraso dos comandos do robô:</value>
+  </data>
+  <data name="ATRASO_MEDIO_SIMULADOR" xml:space="preserve">
+    <value>Tempo médio de atraso dos comandos do simulador:</value>
+  </data>
+  <data name="DESVIO_PADRAO_ROBO" xml:space="preserve">
+    <value>Desvio padrão do robô:</value>
+  </data>
+  <data name="DESVIO_PADRAO_SIMULADOR" xml:space="preserve">
+    <value>Desvio padrão do simulador:</value>
   </data>
 </root>

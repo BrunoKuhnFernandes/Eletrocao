@@ -6,7 +6,7 @@ public static class SequenciaDePosturasExtensions
 {
 	public static (SequenciaDeComandosDasJuntas, SequenciaDeComandosDasJuntasEsp32) MapearParaSequenciaDeComandos(
 		this SequenciaDePosturas sequenciaDePosturas,
-		IEnumerable<ConfiguracoesDaJunta> configuracoesDasJuntas)
+		IEnumerable<ConfiguracoesDaJunta> configuracoesDasJuntas, long timeStamp)
 	{
 		if (sequenciaDePosturas == null)
 			throw new ArgumentNullException(nameof(sequenciaDePosturas));
@@ -23,7 +23,10 @@ public static class SequenciaDePosturasExtensions
 			List<PwmParaJunta> pwmParaJuntas = [];
 			foreach (var coordenada in postura.CoordenadasDosMembros)
 			{
-				angulosParaAsJuntas.AddRange(c.CalcularCinematicaInversa(coordenada.X, coordenada.Y, coordenada.Z, coordenada.SiglaDoMembro));
+				(float omega, float theta, float phi) = c.CalcularAngulosDaPerna(coordenada.X, coordenada.Y, coordenada.Z);
+				angulosParaAsJuntas.Add(new AnguloParaJunta($"{coordenada.SiglaDoMembro}_ombro_junta", omega));
+				angulosParaAsJuntas.Add(new AnguloParaJunta($"{coordenada.SiglaDoMembro}_perna_superior_junta", theta));
+				angulosParaAsJuntas.Add(new AnguloParaJunta($"{coordenada.SiglaDoMembro}_perna_inferior_junta", phi));
 			}
 			foreach (var anguloParaJunta in angulosParaAsJuntas)
 			{
@@ -50,12 +53,12 @@ public static class SequenciaDePosturasExtensions
 				comandos,
 				sequenciaDePosturas.Passos,
 				sequenciaDePosturas.Delay,
-				sequenciaDePosturas.Repeticoes),
+				sequenciaDePosturas.Repeticoes, timeStamp),
 			new SequenciaDeComandosDasJuntasEsp32(
 				sequenciaDePosturas.Nome,
 				comandosEsp32,
 				sequenciaDePosturas.Passos,
 				sequenciaDePosturas.Delay,
-				sequenciaDePosturas.Repeticoes));
+				sequenciaDePosturas.Repeticoes, timeStamp));
 	}
 }

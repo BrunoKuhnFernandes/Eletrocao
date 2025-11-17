@@ -9,6 +9,7 @@ public partial class CarregarCfgDasJuntasPage : ContentPage
 	private readonly IHiveMqService _mqService;
 	private readonly IConfiguracoesDasJuntasService _configuracoesDasJuntasService;
 	private bool _carregar = false;
+	private Dictionary<string, Action<string>> topicHandlers = new Dictionary<string, Action<string>>();
 
 	public CarregarCfgDasJuntasPage(IHiveMqService mqService, IConfiguracoesDasJuntasService configuracoesDasJuntasService)
 	{
@@ -17,13 +18,27 @@ public partial class CarregarCfgDasJuntasPage : ContentPage
 		_mqService = mqService;
 
 		// Assina o tópico
+		
 		_mqService.Subscribe(Constantes.Topicos.TopicoParaTransferirConfiguracoesDasJuntas);
+		topicHandlers.Add(Constantes.Topicos.TopicoParaInformacoesDoRobo, HandleCfgs);
 		_mqService.MessageReceived += OnMessageReceived;
 
 		this.BindingContext = this;
 	}
 
-	private async void OnMessageReceived(string message)
+	private async void OnMessageReceived(string topic, string message)
+	{
+		if (topicHandlers.TryGetValue(topic, out var handler))
+		{
+			handler(message); // Chama o handler correto
+		}
+		else
+		{
+			Console.WriteLine($"Nenhum handler para o tópico: {topic}");
+		}
+	}
+
+	private async void HandleCfgs(string message)
 	{
 		if (_carregar)
 		{

@@ -9,9 +9,10 @@ public interface IHiveMqService
 	HiveMQClient ConfigurarCliente(string usuario, string senha, string host, int port);
 	Task<bool> ConnectClientAsync();
 	Task<bool> DisconnectClientAsync();
+	void PrepareClientToSubscribe();
 	void Publish(string message, string topic);
 	void Subscribe(string topic);
-	event Action<string>? MessageReceived;
+	event Action<string, string>? MessageReceived;
 }
 
 public class HiveMqService : IHiveMqService
@@ -73,16 +74,19 @@ public class HiveMqService : IHiveMqService
 		var result = await _client.PublishAsync(topic, message, QualityOfService.AtLeastOnceDelivery).ConfigureAwait(false);
 	}
 
-	public event Action<string>? MessageReceived; // Evento para notificar a TelemetryPage
+	public event Action<string, string>? MessageReceived;
 
-	public async void Subscribe(string topic)
+	public void PrepareClientToSubscribe()
 	{
 		_client.OnMessageReceived += (sender, args) =>
 		{
+			string topic = args.PublishMessage.Topic;
 			string message = args.PublishMessage.PayloadAsString;
-			MessageReceived?.Invoke(message);
+			MessageReceived?.Invoke(topic, message);
 		};
-
+	}
+	public async void Subscribe(string topic)
+	{
 		var builder = new SubscribeOptionsBuilder();
 		builder.WithSubscription(topic, QualityOfService.AtLeastOnceDelivery);
 		var subscribeOptions = builder.Build();

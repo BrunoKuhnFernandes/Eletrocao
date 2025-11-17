@@ -25,11 +25,11 @@ internal class CinematicaInversa
 		float phi = (float)(phiRad * 180.0 / Math.PI);
 
 		double epsilonRad = Math.Atan2(x, D);
-		double sinBeta = F * Math.Sin(phiRad) / G;
-		sinBeta = Math.Max(-1.0, Math.Min(1.0, sinBeta));
-		double betaRad = Math.Asin(sinBeta);
+		double sinDelta = F * Math.Sin(phiRad) / G;
+		sinDelta = Math.Max(-1.0, Math.Min(1.0, sinDelta));
+		double deltaRad = Math.Asin(sinDelta);
 		
-		double thetaRad = epsilonRad + betaRad;
+		double thetaRad = epsilonRad + deltaRad;
 		float theta = (float)(A + thetaRad * 180.0 / Math.PI);
 		
 		return (omega, theta, phi);

@@ -7,4 +7,5 @@ public record SequenciaDeComandosDasJuntas(
 	ICollection<ComandosJuntas> ComandosJuntas,
 	int? Passos,
 	int? Delay,
-	int? Repeticoes);
+	int? Repeticoes,
+	long Timestamp);
